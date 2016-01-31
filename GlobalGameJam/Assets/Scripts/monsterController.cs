@@ -2,32 +2,46 @@
 using System.Collections;
 
 public class monsterController : MonoBehaviour {
-	
-	float monsterSpeed;
-	Vector2 monsterMovement;
-	Vector2 monsterRandX; //This vector 2 represents the range of randmness for movement in the x direction each time step
-	Vector2 monsterRandY; //This vector 2 represents the range of randomness for movement in the y direction each time step
-	float monsterPosX;
-	float monsterPosY;
-	float health;
-
+	public float monsterSpeed;
+	public float monsterPosX;
+	public float monsterPosY;
+	public float health;
+	public float monsterRandY;
+	public float monsterRandX;
+	public float trajectory;
+	public float directSpeed;
+	public float targetx;
+	public float targety;
 
 	// Use this for initialization
 	void Start () {
-		
-		float monsterSpeed = 1f;
-		health = 10f;	
-	}
+		monsterPosX = this.transform.position.x;
+		monsterPosY = this.transform.position.y;
+		trajectory = Random.Range (0f, Mathf.PI * 2);
+		targetx = Mathf.Sin (trajectory);
+		targety = Mathf.Cos (trajectory);
 
+	}
 
 
 
 	// Update is called once per frame
 	void Update () {
 		
-		monsterPosX = monsterPosX + (monsterSpeed + Random.Range (monsterRandX.x,monsterRandX.y)) * Time.deltaTime;
-		monsterPosY = monsterPosY + (monsterSpeed + Random.Range (monsterRandY.x,monsterRandY.y)) * Time.deltaTime;
+			
+
+		monsterPosX = monsterPosX + (monsterSpeed * targetx + monsterRandX) * Time.deltaTime;
+		monsterPosY = monsterPosY + (monsterSpeed * targety + monsterRandY) * Time.deltaTime;
 
 		transform.position = new Vector2(monsterPosX,monsterPosY);
 	}
+
+
+
+
+
+
+
+
+
 }
